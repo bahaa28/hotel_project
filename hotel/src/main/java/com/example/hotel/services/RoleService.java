@@ -50,5 +50,4 @@ public class RoleService{
         return new ResponseEntity<Role>(HttpStatus.NO_CONTENT);
     }
 
-
 }

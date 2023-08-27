@@ -1,7 +1,11 @@
 package com.example.hotel.services;
 
 
+import com.example.hotel.dto.UserDto;
+import com.example.hotel.dto.UserRoomDto;
 import com.example.hotel.exception.ResourceNotFoundException;
+import com.example.hotel.mappers.UserDtoMapper;
+import com.example.hotel.mappers.UserRoomMapper;
 import com.example.hotel.model.Role;
 import com.example.hotel.model.UserEntity;
 import com.example.hotel.repositories.RoleRepository;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserEntityService {
@@ -23,12 +28,24 @@ public class UserEntityService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public List<UserEntity> getAll(){
-        return userEntityRepository.findAll();
+    @Autowired
+    private UserDtoMapper userDtoMapper;
+
+    @Autowired
+    private UserRoomMapper userRoomMapper;
+
+    public List<UserDto> getAll(){
+        return userEntityRepository
+                .findAll()
+                .stream()
+                .map(userDtoMapper)
+                .collect(Collectors.toList());
     }
 
-    public ResponseEntity<UserEntity> getById(long id){
-        UserEntity userEntity = userEntityRepository.findById(id).orElseThrow(() ->
+    public ResponseEntity<UserDto> getById(long id){
+        UserDto userEntity = userEntityRepository.findById(id)
+                .map(userDtoMapper)
+                .orElseThrow(() ->
                 new ResourceNotFoundException("User not exists with id: " + id));
         return ResponseEntity.ok(userEntity);
     }
@@ -101,6 +118,20 @@ public class UserEntityService {
     }
 
 
+    public ResponseEntity<UserRoomDto> getUserRoomDetail(long id){
+        UserRoomDto userRoomDto = userEntityRepository.findById(id)
+                .map(user ->{
+                    return userRoomMapper.getUserRoomDetails(user, user.getRooms());
+                })
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("user does not found with id: " + id));
+
+        return ResponseEntity.ok(userRoomDto);
+    }
+
+    public List<UserRoomDto> findUsersNeedToPayMoreThanAmount(double amount){
+        return userEntityRepository.findUsersNeedToPayMoreThanAmount(amount);
+    }
 
 
 }
