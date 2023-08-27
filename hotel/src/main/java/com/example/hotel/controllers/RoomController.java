@@ -1,5 +1,6 @@
 package com.example.hotel.controllers;
 
+import com.example.hotel.dto.RoomDto;
 import com.example.hotel.model.Rooms;
 import com.example.hotel.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class RoomController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Rooms> getById(@PathVariable long id){
+    public ResponseEntity<RoomDto> getById(@PathVariable long id){
        return roomService.getById(id);
     }
 

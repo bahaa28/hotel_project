@@ -1,6 +1,8 @@
 package com.example.hotel.controllers;
 
 
+import com.example.hotel.dto.UserDto;
+import com.example.hotel.dto.UserRoomDto;
 import com.example.hotel.model.Role;
 import com.example.hotel.model.UserEntity;
 import com.example.hotel.services.UserEntityService;
@@ -18,17 +20,17 @@ public class UserEntityController {
     private UserEntityService userEntityService;
 
     @GetMapping
-    public List<UserEntity> getAll(){
+    public List<UserDto> getAll(){
         return userEntityService.getAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getById(@PathVariable long id){
+    @GetMapping("id/{id}")
+    public ResponseEntity<UserDto> getById(@PathVariable long id){
         return userEntityService.getById(id);
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<UserEntity> getByUsername(@PathVariable String username){
+    @GetMapping("username/{username}")
+    public ResponseEntity<UserDto> getByUsername(@PathVariable String username){
         return userEntityService.getByUsername(username);
     }
 
@@ -68,6 +70,11 @@ public class UserEntityController {
     @PostMapping("list")
     public ResponseEntity<String> addList(@RequestBody List<UserEntity> userEntityList){
         return userEntityService.addList(userEntityList);
+    }
+
+    @GetMapping("rooms/userId/{id}")
+    public  ResponseEntity<UserRoomDto> getUserRoomDetail(@PathVariable long id){
+        return userEntityService.getUserRoomDetail(id);
     }
 
 }

@@ -1,17 +1,27 @@
 package com.example.hotel.services;
 
+
+import com.example.hotel.dto.RoomDto;
 import com.example.hotel.exception.ResourceNotFoundException;
+import com.example.hotel.mappers.RoomMapper;
 import com.example.hotel.model.Rooms;
 import com.example.hotel.model.UserEntity;
 import com.example.hotel.repositories.RoomRepository;
 import com.example.hotel.repositories.UserEntityRepository;
+import ma.glasnost.orika.BoundMapperFacade;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RoomService {
@@ -22,15 +32,22 @@ public class RoomService {
     @Autowired
     private UserEntityRepository userEntityRepository;
 
+    @Autowired
+    private RoomMapper roomMapper;
+
+
+
     public List<Rooms> getAll(){
         return roomRepository.findAll();
     }
 
-    public ResponseEntity<Rooms> getById(long id){
+    public ResponseEntity<RoomDto> getById(long id) {
         Rooms room = roomRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("room does not exists with id: " + id));
 
-        return ResponseEntity.ok(room);
+        RoomDto roomDto = roomMapper.roomToDto(room);
+
+        return ResponseEntity.ok(roomDto);
     }
 
     public Rooms add(@Valid Rooms room){
