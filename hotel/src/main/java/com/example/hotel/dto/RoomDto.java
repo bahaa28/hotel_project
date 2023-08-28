@@ -16,14 +16,12 @@ public class RoomDto {
 
     private Long id;
 
-    private Date reserveDate = new Date();
+    private Date reserveDate;
 
-    @NotNull(message = "reserve expire date must not be null")
+   // @NotNull(message = "reserve expire date must not be null")
     private Date reserveExpireDate;
 
-    @NotNull(message = "amount must not be null")
+   // @NotNull(message = "amount must not be null")
     private Double amount;
-
-
 
 }
