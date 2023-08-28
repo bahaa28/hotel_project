@@ -11,8 +11,7 @@ import java.util.List;
 public interface UserRoomMapper {
 
     @Mapping(source = "userEntity.username", target = "username")
-    @Mapping(source = "userEntity.firstName", target = "firstName")
-    @Mapping(source = "userEntity.lastName", target = "lastName")
+    @Mapping(target = "name", expression = "java(fullName(userEntity.getFirstName(), userEntity.getLastName()))")
     @Mapping(target = "amount",expression = "java(calculateTotalAmount(rooms))")
     UserRoomDto getUserRoomDetails(UserEntity userEntity, List<Rooms> rooms);
 
@@ -23,5 +22,9 @@ public interface UserRoomMapper {
                     .sum();
         }
         return 0.0;
+    }
+
+    default String fullName(String first, String last){
+        return first + " " + last;
     }
 }

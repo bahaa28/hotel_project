@@ -25,6 +25,7 @@ public class RoomDto {
     @NotNull(message = "amount must not be null")
     private Double amount;
 
-
+    @NotNull(message = "username must not to be null")
+    private String username;
 
 }

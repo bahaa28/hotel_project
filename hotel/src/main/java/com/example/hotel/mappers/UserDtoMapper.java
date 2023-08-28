@@ -18,11 +18,11 @@ public class UserDtoMapper implements Function<UserEntity, UserDto> {
                 userEntity.getUsername(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
-                userEntity.getBirthDate(),
-                userEntity.getUser_role()
-                        .stream()
-                        .map(r -> r.getName())
-                        .collect(Collectors.toList())
+                userEntity.getBirthDate()
+                //userEntity.getUser_role()
+                //        .stream()
+                //        .map(r -> r.getName())
+                //        .collect(Collectors.toList())
         );
     }
 }

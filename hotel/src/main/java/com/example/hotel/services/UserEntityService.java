@@ -5,6 +5,7 @@ import com.example.hotel.dto.UserDto;
 import com.example.hotel.dto.UserRoomDto;
 import com.example.hotel.exception.ResourceNotFoundException;
 import com.example.hotel.mappers.UserDtoMapper;
+import com.example.hotel.mappers.UserMapper;
 import com.example.hotel.mappers.UserRoomMapper;
 import com.example.hotel.model.Role;
 import com.example.hotel.model.UserEntity;
@@ -34,6 +35,9 @@ public class UserEntityService {
     @Autowired
     private UserRoomMapper userRoomMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public List<UserDto> getAll(){
         return userEntityRepository
                 .findAll()
@@ -43,11 +47,13 @@ public class UserEntityService {
     }
 
     public ResponseEntity<UserDto> getById(long id){
-        UserDto userEntity = userEntityRepository.findById(id)
-                .map(userDtoMapper)
+        UserEntity userEntity = userEntityRepository.findById(id)
                 .orElseThrow(() ->
                 new ResourceNotFoundException("User not exists with id: " + id));
-        return ResponseEntity.ok(userEntity);
+
+        UserDto userDto = userMapper.userToDto(userEntity);
+
+        return ResponseEntity.ok(userDto);
     }
 
     public ResponseEntity<UserEntity> getByUsername(@Valid String username){

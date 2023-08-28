@@ -12,17 +12,19 @@ import jakarta.validation.constraints.NotNull;
 @AllArgsConstructor
 public class UserRoomDto {
 
+    public UserRoomDto(String username,  String firstName, String lastName, Double amount) {
+        this.username = username;
+        this.name = firstName + " " + lastName;
+        this.amount = amount;
+    }
+
     @NotNull(message = "username must not be null")
     @NotEmpty(message = "username must not be empty")
     private String username;
 
     @NotNull(message = "first name must not be null")
     @NotEmpty(message = "first name must not be empty")
-    private String firstName;
-
-    @NotNull(message = "last name must not be null")
-    @NotEmpty(message = "last name must not be empty")
-    private String lastName;
+    private String name;
 
     @NotNull(message = "amount must not be null")
     private Double amount;
