@@ -18,15 +18,10 @@ public class UserRoomDto {
         this.amount = amount;
     }
 
-    @NotNull(message = "username must not be null")
-    @NotEmpty(message = "username must not be empty")
     private String username;
 
-    @NotNull(message = "first name must not be null")
-    @NotEmpty(message = "first name must not be empty")
     private String name;
 
-    @NotNull(message = "amount must not be null")
     private Double amount;
 
 }

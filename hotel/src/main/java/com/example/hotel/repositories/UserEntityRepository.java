@@ -15,10 +15,10 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsername(String username);
     Boolean existsByUsername(String username);
 
-    @Query("SELECT new com.example.hotel.dto.UserRoomDto(U.username, U.firstName, U.lastName, SUM(R.amount)) " +
-            "FROM UserEntity U INNER JOIN Rooms R ON U.id = R.user.id " +
+    @Query("SELECT new com.example.hotel.dto.UserRoomDto(U.username, U.firstName, U.lastName, COALESCE(SUM(R.amount), 0)) " +
+            "FROM UserEntity U LEFT JOIN Rooms R ON U.id = R.user.id " +
             "GROUP BY U.id " +
-            "HAVING SUM(R.amount) > ?1")
+            "HAVING COALESCE(SUM(R.amount), 0) > ?1")
     List<UserRoomDto> findUsersNeedToPayMoreThanAmount(double amount);
 
     default Double calculateTotalAmount(List<Rooms> rooms) {

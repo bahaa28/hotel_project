@@ -15,9 +15,8 @@ public class UserDtoMapper implements Function<UserEntity, UserDto> {
     public UserDto apply(UserEntity userEntity) {
         return  new UserDto(
                 userEntity.getId(),
-                userEntity.getUsername(),
-                userEntity.getFirstName(),
                 userEntity.getLastName(),
+                userEntity.getUsername() + " " + userEntity.getFirstName(),
                 userEntity.getBirthDate()
                 //userEntity.getUser_role()
                 //        .stream()
