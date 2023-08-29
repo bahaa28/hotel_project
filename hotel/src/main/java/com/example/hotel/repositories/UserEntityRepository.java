@@ -21,13 +21,4 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
             "HAVING COALESCE(SUM(R.amount), 0) > ?1")
     List<UserRoomDto> findUsersNeedToPayMoreThanAmount(double amount);
 
-    default Double calculateTotalAmount(List<Rooms> rooms) {
-        if (rooms != null) {
-            return rooms.stream()
-                    .mapToDouble(Rooms::getAmount)
-                    .sum();
-        }
-        return 0.0;
-    }
-
 }

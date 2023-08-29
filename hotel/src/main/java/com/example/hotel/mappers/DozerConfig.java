@@ -18,8 +18,5 @@ public class DozerConfig {
         List<String> list = new ArrayList<String>();
         list.add("dozer_user_converter.xml");
         return new DozerBeanMapper(list);
-       // return DozerBeanMapperBuilder.create()
-      //          .withMappingFiles()
-       //         .build();
     }
 }
