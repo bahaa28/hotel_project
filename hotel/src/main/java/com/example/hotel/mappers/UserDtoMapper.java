@@ -2,6 +2,9 @@ package com.example.hotel.mappers;
 
 import com.example.hotel.dto.UserDto;
 import com.example.hotel.model.UserEntity;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
@@ -9,19 +12,21 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class UserDtoMapper implements Function<UserEntity, UserDto> {
+public class UserDtoMapper{
 
-    @Override
-    public UserDto apply(UserEntity userEntity) {
-        return  new UserDto(
-                userEntity.getId(),
-                userEntity.getLastName(),
-                userEntity.getUsername() + " " + userEntity.getFirstName(),
-                userEntity.getBirthDate()
-                //userEntity.getUser_role()
-                //        .stream()
-                //        .map(r -> r.getName())
-                //        .collect(Collectors.toList())
-        );
+    @Autowired
+    private MapperFactory mapperFactory;
+
+    public UserDto userToDto(UserEntity userEntity) {
+
+        mapperFactory.classMap(UserEntity.class, UserDto.class)
+                .field("firstName", "name")
+                .field("birthDate", "birthday")
+                .byDefault()
+                .register();
+
+        MapperFacade mapperFacade = mapperFactory.getMapperFacade();
+
+        return mapperFacade.map(userEntity, UserDto.class);
     }
 }

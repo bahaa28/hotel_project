@@ -2,6 +2,8 @@ package com.example.hotel.AOP;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -22,8 +24,14 @@ public class MyAspectBean {
         System.out.println("\n end at " + new Date() + "\nafter-->>");
     }
 
-    @AfterThrowing("userPointCut()")
+    private static final Logger logger = LoggerFactory.getLogger(MyAspectBean.class);
+
+    @AfterThrowing(pointcut = "userPointCut()")
     public void afterThrow(JoinPoint joinPoint){
         System.out.println("\n\n<-- after throw -->\n");
+        logger.error("Exception in method: " + joinPoint.getSignature().getName());
+        System.out.println("\n\n");
+        //logger.error("Exception message: " + exception.getMessage());
+        //logger.error("Stack trace:", exception);
     }
 }

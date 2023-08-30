@@ -38,12 +38,8 @@ public class UserEntityService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<UserDto> getAll(){
-        return userEntityRepository
-                .findAll()
-                .stream()
-                .map(userDtoMapper)
-                .collect(Collectors.toList());
+    public List<UserEntity> getAll(){
+        return userEntityRepository.findAll();
     }
 
     public ResponseEntity<UserDto> getById(long id){
@@ -51,7 +47,7 @@ public class UserEntityService {
                 .orElseThrow(() ->
                 new ResourceNotFoundException("User not exists with id: " + id));
 
-        UserDto userDto = userMapper.userToDto(userEntity);
+        UserDto userDto = userDtoMapper.userToDto(userEntity);
 
         return ResponseEntity.ok(userDto);
     }

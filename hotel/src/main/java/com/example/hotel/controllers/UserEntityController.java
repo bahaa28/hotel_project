@@ -7,6 +7,7 @@ import com.example.hotel.model.Role;
 import com.example.hotel.model.UserEntity;
 import com.example.hotel.services.UserEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class UserEntityController {
     private UserEntityService userEntityService;
 
     @GetMapping
-    public List<UserDto> getAll(){
+    public List<UserEntity> getAll(){
         return userEntityService.getAll();
     }
 
