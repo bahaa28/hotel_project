@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class OrikaConfig {
+public class OrikaConfig{
 
     @Bean
     public MapperFactory mapperFactory() {
+
         return new DefaultMapperFactory.Builder().build();
     }
+
+
 }

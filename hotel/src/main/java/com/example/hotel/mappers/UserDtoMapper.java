@@ -7,10 +7,6 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-
 @Service
 public class UserDtoMapper{
 
@@ -29,4 +25,6 @@ public class UserDtoMapper{
 
         return mapperFacade.map(userEntity, UserDto.class);
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.hotel.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.googlecode.jmapper.annotations.JMapConversion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -107,4 +108,10 @@ public class UserEntity implements UserDetails {
                 .map(Role::getName)
                 .collect(Collectors.toList());
     }
+
+    @JMapConversion(from = {"firstName", "lastName"}, to = {"name"})
+    public String concatenation(String firstName, String lastName){
+        return firstName + " " + lastName;
+    }
+
 }
