@@ -39,6 +39,8 @@ public class SecurityConfig{
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
+                //.antMatchers("/swagger-ui/index.html", "/swagger-ui/swagger-ui.css", "/swagger-ui/index.css", "/swagger-ui/swagger-initializer.js", "/swagger-ui/swagger-ui-bundle.js", "/swagger-ui/swagger-ui-standalone-preset.js", "/v3/api-docs/swagger-config", "/swagger-ui/favicon-32x32.png", "/v3/api-docs").permitAll()
+                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**", "/swagger-resources/**").permitAll()
                 .antMatchers( "/api/v1/")
                 .authenticated()
                 .anyRequest().permitAll()

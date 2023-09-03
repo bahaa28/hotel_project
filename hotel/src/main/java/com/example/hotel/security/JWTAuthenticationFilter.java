@@ -33,7 +33,16 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private static final String[] NON_TOKEN_REQUIRED_PATHS = {
             "/api/v1/auth/login",
             "/api/v1/auth/register",
-            "/api/v1/auth/logout"
+            "/api/v1/auth/logout",
+            "/swagger-ui/index.html",
+            "/swagger-ui/swagger-ui.css",
+            "/swagger-ui/index.css",
+            "/swagger-ui/swagger-initializer.js",
+            "/swagger-ui/swagger-ui-bundle.js",
+            "/swagger-ui/swagger-ui-standalone-preset.js",
+            "/v3/api-docs/swagger-config",
+            "/swagger-ui/favicon-32x32.png",
+            "/v3/api-docs"
     };
 
     @Override
